@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "397920581655",
+    "firebase_url": "https://upbg-35cf2.firebaseio.com",
+    "project_id": "upbg-35cf2",
+    "storage_bucket": "upbg-35cf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397920581655:android:b3b6a21b082a15dab24452",
+        "android_client_info": {
+          "package_name": "com.example.logisticsgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397920581655-jop23vaenl4r17m884m0mbrhr9535c5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB-h5KAnmKu2TGODDaJZ-ZMKYV-nvrnak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397920581655-jop23vaenl4r17m884m0mbrhr9535c5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
