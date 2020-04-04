@@ -27,12 +27,19 @@ class _EmpresasState extends State<Empresas> {
     mapa = json.decode(data);
 
     try {
-      var url =
-          "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}";
-      var response = await http.get(url);
-      Iterable list = json.decode(response.body);
-      listaEmpresa = list.map((model) => Empresa.fromJson(model)).toList();
-      return listaEmpresa;
+      if (mapa['perfil'] == 'coordinator') {
+        var url = "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}";
+        var response = await http.get(url);
+        Iterable list = json.decode(response.body);
+        listaEmpresa = list.map((model) => Empresa.fromJson(model)).toList();
+        return listaEmpresa;
+      } else {
+        var url = "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}&company_id=${mapa['company_id']}";
+        var response = await http.get(url);
+        Iterable list = json.decode(response.body);
+        listaEmpresa = list.map((model) => Empresa.fromJson(model)).toList();
+        return listaEmpresa;
+      }
     } catch (e) {
       setState(() {
         erro = false;
@@ -89,7 +96,8 @@ class _EmpresasState extends State<Empresas> {
                                 MaterialPageRoute(
                                     builder: (context) => SalaDeChat(
                                         listaEmpresa[index].name,
-                                        listaEmpresa[index].id))),
+                                        listaEmpresa[index].id,
+                                        mapa))),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10.0, vertical: 3.0),

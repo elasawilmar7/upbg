@@ -1,6 +1,6 @@
 import 'package:logisticsgame/models/arquivo.dart';
 import 'package:flutter/material.dart';
-import 'package:logisticsgame/pages/sala_de_chat.dart';
+//import 'package:logisticsgame/pages/sala_de_chat.dart';
 
 class HomePage extends StatefulWidget {
   final Map mapa;
@@ -65,20 +65,22 @@ class _HomePageState extends State<HomePage> {
 
               //currentAccountPicture: CircleAvatar(),
             ),
-            widget.mapa['perfil'] == 'coordinator'
-                ? _listTile(
+            //widget.mapa['perfil'] == 'coordinator'
+            //    ? 
+                _listTile(
                     "Simulações",
                     Icons.assignment,
                     '/simulacao',
-                  )
-                : ListTile(
-                    title: Text('Sala de Chat'),
-                    leading: Icon(Icons.chat),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SalaDeChat(
-                                'Chat', widget.mapa['company_id'])))),
+                  ),
+                //: 
+                //ListTile(
+                //    title: Text('Sala de Chat'),
+                //    leading: Icon(Icons.chat),
+                //    onTap: () => Navigator.push(
+                //        context,
+                //        MaterialPageRoute(
+                //            builder: (context) => SalaDeChat(
+                //                'Chat', widget.mapa['company_id'], widget.mapa)))),
             _listTile(
               "Mensagens",
               Icons.message,
