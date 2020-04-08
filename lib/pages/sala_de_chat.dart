@@ -2,7 +2,10 @@
 
 //import 'dart:convert';
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 //import 'package:logisticsgame/models/arquivo.dart';
 //import 'package:logisticsgame/models/arquivo.dart';
@@ -22,13 +25,28 @@ class SalaDeChat extends StatefulWidget {
 
 class _SalaDeChatState extends State<SalaDeChat> {
 
-  void _sendMessage(String text) {
-    Firestore.instance.collection('empresas').document('${widget.idEmpresa}').collection('mensagens').add({
-      'from': widget.mapa['nome'],
-      'text': text,
-      'token': widget.mapa['user_id'],
-      'time': Timestamp.now(),
-    });
+  void _sendMessage({String text, File imgFile}) async{
+
+    Map<String, dynamic> data = {};
+      data['from'] = widget.mapa['nome'];
+      data['token'] = widget.mapa['user_id'];
+      data['time'] = Timestamp.now();
+
+    if(imgFile != null) {
+      print(imgFile);
+      StorageUploadTask task = FirebaseStorage.instance.ref().child('image').child(
+        DateTime.now().millisecondsSinceEpoch.toString()
+      ).putFile(imgFile);
+
+      StorageTaskSnapshot taskSnapshot = await task.onComplete;
+      String url = await taskSnapshot.ref.getDownloadURL();
+      print(url);
+      data['imgFile'] = url;
+    }
+    if(text != null) {
+      data['text'] = text;
+    }
+    Firestore.instance.collection('empresas').document('${widget.idEmpresa}').collection('mensagens').add(data);
   }
   
 

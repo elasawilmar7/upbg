@@ -15,7 +15,7 @@ class _ChatMessageState extends State<ChatMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.mine? Colors.blue[100]: Colors.grey[300],
+      //color: widget.mine? Colors.blue[100]: Colors.grey[300],
       padding: EdgeInsets.symmetric(vertical: 10.0),
       margin: EdgeInsets.symmetric(vertical: 3.0),
       width: MediaQuery.of(context).size.width * 0.10,
@@ -30,6 +30,9 @@ class _ChatMessageState extends State<ChatMessage> {
                 fontSize: 13,
               ),
             ),
+            SizedBox(height: 5,),
+            widget.documents['imgFile'] != null ? 
+            Image.network(widget.documents['imgFile']):
             Text(
               widget.documents['text'],
               style: TextStyle(
