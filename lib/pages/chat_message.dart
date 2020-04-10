@@ -32,7 +32,11 @@ class _ChatMessageState extends State<ChatMessage> {
             ),
             SizedBox(height: 5,),
             widget.documents['imgFile'] != null ? 
-            Image.network(widget.documents['imgFile']):
+            Image.network(
+              widget.documents['imgFile'], 
+              width: MediaQuery.of(context).size.width * 0.80,
+              height: MediaQuery.of(context).size.height * 0.80,
+            ):
             Text(
               widget.documents['text'],
               style: TextStyle(

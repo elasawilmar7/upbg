@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
         a = json.decode(data);
 
         if (a != null) {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => HomePage(a)));
         } else {
           Navigator.pushReplacementNamed(context, '/loginPage');

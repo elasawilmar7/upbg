@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import 'package:logisticsgame/pages/home_page.dart';
 import 'package:logisticsgame/pages/jogo_da_velha.dart';
@@ -8,11 +9,14 @@ import 'package:logisticsgame/pages/material_video.dart';
 import 'package:logisticsgame/pages/mensagem.dart';
 import 'package:logisticsgame/pages/simulacoes.dart';
 import 'package:logisticsgame/pages/splash_screen.dart';
-//import 'package:flutter/services.dart';
 
 
 void main() async{
   runApp(MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 } 
 
 class MyApp extends StatelessWidget {

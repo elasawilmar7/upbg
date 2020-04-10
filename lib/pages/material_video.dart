@@ -1,5 +1,6 @@
 import 'dart:convert';
 //import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:logisticsgame/models/listavideo.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -145,38 +146,52 @@ class Youtube extends StatefulWidget {
 
 class _YoutubeState extends State<Youtube> {
   @override
-  //void initState() {
-  //  SystemChrome.setPreferredOrientations([
-  //  DeviceOrientation.portraitUp,
-  //  DeviceOrientation.landscapeLeft,
-  //  DeviceOrientation.landscapeRight,
-  //]);
-  //super.initState();
-  //}
+  void initState() {
+    SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+  super.initState();
+  }
+
+  Future<bool> _onBackPressed() async{
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    return Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.black,
-        leading: FlatButton(
-            child: Icon(
-              Icons.keyboard_arrow_left,
-              color: Colors.white,
-              size: 40,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      ),
-      body: Builder(
-        builder: (BuildContext context) {
-          return WebView(
-            initialUrl:
-                'https://elasalearning.com.br/logisticsgame/api_play.php?video=${widget.url}',
-            javascriptMode: JavascriptMode.unrestricted,
-          );
-        },
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          backgroundColor: Colors.black,
+          leading: FlatButton(
+              child: Icon(
+                Icons.keyboard_arrow_left,
+                color: Colors.white,
+                size: 40,
+              ),
+              onPressed: () {
+                SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+              ]);
+                Navigator.pop(context);
+              }),
+        ),
+        body: Builder(
+          builder: (BuildContext context) {
+            return WebView(
+              initialUrl:
+                  'https://elasalearning.com.br/logisticsgame/api_play.php?video=${widget.url}',
+              javascriptMode: JavascriptMode.unrestricted,
+            );
+          },
+        ),
       ),
     );
   }

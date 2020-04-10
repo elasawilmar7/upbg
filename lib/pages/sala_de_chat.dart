@@ -1,14 +1,11 @@
-//import 'dart:convert';
-
-//import 'dart:convert';
-
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-//import 'package:logisticsgame/models/arquivo.dart';
-//import 'package:logisticsgame/models/arquivo.dart';
+import 'package:logisticsgame/models/alunos.dart';
 import 'package:logisticsgame/pages/chat_message.dart';
 
 import 'package:logisticsgame/pages/text_composer.dart';
@@ -24,6 +21,8 @@ class SalaDeChat extends StatefulWidget {
 }
 
 class _SalaDeChatState extends State<SalaDeChat> {
+  bool isLoading = false;
+  var listaAluno = new List<Aluno>();
 
   void _sendMessage({String text, File imgFile}) async{
 
@@ -38,15 +37,35 @@ class _SalaDeChatState extends State<SalaDeChat> {
         DateTime.now().millisecondsSinceEpoch.toString()
       ).putFile(imgFile);
 
+      setState(() {
+        isLoading = true;
+      });
+
       StorageTaskSnapshot taskSnapshot = await task.onComplete;
       String url = await taskSnapshot.ref.getDownloadURL();
       print(url);
       data['imgFile'] = url;
+
+      setState(() {
+        isLoading = false;
+      });
     }
     if(text != null) {
       data['text'] = text;
     }
     Firestore.instance.collection('empresas').document('${widget.idEmpresa}').collection('mensagens').add(data);
+  }
+
+  Future<List<Aluno>> _getAluno() async {
+    try {
+      var response = await http
+          .get('http://adm.logisticsgame.com.br/api/v1/alunos?id=teste&id_simulacao=${widget.mapa['id_simulacao']}&company_id=${widget.mapa['company_id']}');
+      Iterable list = json.decode(response.body);
+      listaAluno = list.map((model) => Aluno.fromJson(model)).toList();
+      return listaAluno;
+    } catch (e) {
+      throw ('');
+    }
   }
   
 
@@ -97,13 +116,47 @@ class _SalaDeChatState extends State<SalaDeChat> {
                   SizedBox(
                     height: 20,
                   ),
+                  isLoading ? LinearProgressIndicator() : Container(),
                   TextComposer(_sendMessage),
                 ],
               ),
             ),
 
             //Segunda Tela
-            Container(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              child: FutureBuilder(
+                future: _getAluno(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  print(snapshot.data);
+                  if (snapshot.data != null) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    return ListView.builder(
+                      itemCount: listaAluno.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            title: Text(listaAluno[index].name),
+                            leading: Icon(
+                              Icons.account_circle,
+                              color: Colors.blue,
+                            ),
+                            onTap: () {
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ),
           ]
         ),
       ),

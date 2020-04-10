@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _ctrlSenha = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String barcode = "";
+  bool isLoading = false;
 
   @override
   //  void initState() {
@@ -43,53 +44,60 @@ class _LoginPageState extends State<LoginPage> {
             ])),
         child: Form(
           key: _formKey,
-          child: ListView(
+          child: Column(
             children: <Widget>[
-              Image.asset(
-                "imagens/logo.png",
-                scale: 1.2,
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Image.asset(
+                      "imagens/logo.png",
+                      scale: 1.2,
+                    ),
+                    SizedBox(height: 15),
+                    _textFormField(
+                      "ID",
+                      "Digite o ID",
+                      validator: _valida,
+                      controller: _ctrlId,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(height: 10),
+                    _textFormField(
+                      "Login",
+                      "Digite seu Login",
+                      validator: _valida,
+                      controller: _ctrlLogin,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 10),
+                    _textFormField(
+                      "Senha",
+                      "Digite sua Senha",
+                      senha: true,
+                      validator: _valida,
+                      controller: _ctrlSenha,
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(height: 30),
+                    _flatButton("Entrar", context),
+                    SizedBox(height: 15),
+                    IconButton(
+                        icon: Icon(MdiIcons.qrcode),
+                        iconSize: 40,
+                        color: Color.fromRGBO(255, 197, 1, 1),
+                        onPressed: () {
+                          _scan();
+                        }),
+                    Text(
+                      barcode,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 15),
-              _textFormField(
-                "ID",
-                "Digite o ID",
-                validator: _valida,
-                controller: _ctrlId,
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 10),
-              _textFormField(
-                "Login",
-                "Digite seu Login",
-                validator: _valida,
-                controller: _ctrlLogin,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 10),
-              _textFormField(
-                "Senha",
-                "Digite sua Senha",
-                senha: true,
-                validator: _valida,
-                controller: _ctrlSenha,
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 30),
-              _flatButton("Entrar", context),
-              SizedBox(height: 15),
-              IconButton(
-                  icon: Icon(MdiIcons.qrcode),
-                  iconSize: 40,
-                  color: Color.fromRGBO(255, 197, 1, 1),
-                  onPressed: () {
-                    _scan();
-                  }),
-              Text(
-                barcode,
-                style: TextStyle(color: Colors.white),
-              ),
+              isLoading ? LinearProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),) : Container(),
             ],
-          ),
+          )
         ),
       ),
     );
@@ -182,6 +190,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
         onPressed: () {
+          isLoading = true;
           _clickButton(context);
         },
       ),
