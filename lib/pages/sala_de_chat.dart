@@ -25,11 +25,13 @@ class _SalaDeChatState extends State<SalaDeChat> {
   var listaAluno = new List<Aluno>();
 
   void _sendMessage({String text, File imgFile}) async{
+    
+    
 
     Map<String, dynamic> data = {};
       data['from'] = widget.mapa['nome'];
       data['token'] = widget.mapa['user_id'];
-      data['time'] = Timestamp.now();
+      data['time'] = FieldValue.serverTimestamp();
 
     if(imgFile != null) {
       print(imgFile);
@@ -59,7 +61,7 @@ class _SalaDeChatState extends State<SalaDeChat> {
   Future<List<Aluno>> _getAluno() async {
     try {
       var response = await http
-          .get('http://adm.logisticsgame.com.br/api/v1/alunos?id=teste&id_simulacao=${widget.mapa['id_simulacao']}&company_id=${widget.mapa['company_id']}');
+          .get('http://adm.logisticsgame.com.br/api/v1/alunos?id=${widget.mapa['id']}&id_simulacao=${widget.mapa['id_simulacao']}&company_id=${widget.idEmpresa}');
       Iterable list = json.decode(response.body);
       listaAluno = list.map((model) => Aluno.fromJson(model)).toList();
       return listaAluno;

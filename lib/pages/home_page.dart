@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               //widget.mapa['perfil'] == 'coordinator'
               //    ? 
                   _listTile(
-                      "Simulações",
+                      "Salas de Chat",
                       Icons.assignment,
                       '/simulacao',
                     ),

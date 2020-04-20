@@ -28,6 +28,7 @@ class _TextComposerState extends State<TextComposer> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.photo_camera),
@@ -40,13 +41,17 @@ class _TextComposerState extends State<TextComposer> {
         ),
         Expanded(
           child: Container(
-            height: 50.0,
+            constraints: BoxConstraints(
+              minHeight: 50.0
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(color: Colors.black26, width: 1.0),
             ),
             child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               decoration: InputDecoration(
                 hintText: "Enviar uma Mensagem", 
                 border: InputBorder.none,
