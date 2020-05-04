@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logisticsgame/models/arquivo.dart';
 import 'package:logisticsgame/models/empresa.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class Empresas extends StatefulWidget {
 }
 
 class _EmpresasState extends State<Empresas> {
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
   bool erro = true;
   List listaEmpresa = new List<Empresa>();
   Map mapa;
@@ -28,13 +30,15 @@ class _EmpresasState extends State<Empresas> {
 
     try {
       if (mapa['perfil'] == 'coordinator') {
-        var url = "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}";
+        var url =
+            "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}";
         var response = await http.get(url);
         Iterable list = json.decode(response.body);
         listaEmpresa = list.map((model) => Empresa.fromJson(model)).toList();
         return listaEmpresa;
       } else {
-        var url = "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}&company_id=${mapa['company_id']}";
+        var url =
+            "http://adm.logisticsgame.com.br/api/v1/empresas?id=${mapa['id']}&id_simulacao=${widget.id}&company_id=${mapa['company_id']}";
         var response = await http.get(url);
         Iterable list = json.decode(response.body);
         listaEmpresa = list.map((model) => Empresa.fromJson(model)).toList();
@@ -91,13 +95,21 @@ class _EmpresasState extends State<Empresas> {
                         itemCount: listaEmpresa.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () => Navigator.push(
+                            onTap: () {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SalaDeChat(
-                                        listaEmpresa[index].name,
-                                        listaEmpresa[index].id,
-                                        mapa))),
+                                  builder: (context) => SalaDeChat(
+                                    listaEmpresa[index].name,
+                                    listaEmpresa[index].id,
+                                    mapa,
+                                    widget.id,
+                                  ),
+                                ),
+                              );
+                              _firebaseMessaging.subscribeToTopic(
+                                  '${listaEmpresa[index].id}');
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10.0, vertical: 3.0),

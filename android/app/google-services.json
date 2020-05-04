@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "397920581655",
-    "firebase_url": "https://upbg-35cf2.firebaseio.com",
-    "project_id": "upbg-35cf2",
-    "storage_bucket": "upbg-35cf2.appspot.com"
+    "project_number": "657483785884",
+    "firebase_url": "https://upbg-ffa0c.firebaseio.com",
+    "project_id": "upbg-ffa0c",
+    "storage_bucket": "upbg-ffa0c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:397920581655:android:b3b6a21b082a15dab24452",
+        "mobilesdk_app_id": "1:657483785884:android:79096fd4a1e1903cffef59",
         "android_client_info": {
           "package_name": "com.example.logisticsgame"
         }
       },
       "oauth_client": [
         {
-          "client_id": "397920581655-jop23vaenl4r17m884m0mbrhr9535c5r.apps.googleusercontent.com",
+          "client_id": "657483785884-o2pij3tup9gdgih6fqrut4aj69340uha.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBB-h5KAnmKu2TGODDaJZ-ZMKYV-nvrnak"
+          "current_key": "AIzaSyBFZCW7OWBKn4_Fy7gBJ7i3Cat9rAax5pY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "397920581655-jop23vaenl4r17m884m0mbrhr9535c5r.apps.googleusercontent.com",
+              "client_id": "657483785884-o2pij3tup9gdgih6fqrut4aj69340uha.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

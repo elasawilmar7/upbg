@@ -1,5 +1,9 @@
+//import 'dart:convert';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logisticsgame/models/arquivo.dart';
 import 'package:flutter/material.dart';
+//import 'package:http/http.dart' as http;
 //import 'package:logisticsgame/pages/sala_de_chat.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +16,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+
+  @override
+  void initState() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.getToken().then((token) {
+      print('TOKEN:' + token);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,11 +56,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Container(
-            alignment: Alignment.center,
-            child: SizedBox(
-              child: Image.asset('imagens/logo.png'),
-              width: 250,
-            )),
+          alignment: Alignment.center,
+          child: SizedBox(
+            child: Image.asset('imagens/logo.png'),
+            width: 250,
+          ),
+        ),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -67,21 +95,21 @@ class _HomePageState extends State<HomePage> {
                 //currentAccountPicture: CircleAvatar(),
               ),
               //widget.mapa['perfil'] == 'coordinator'
-              //    ? 
-                  _listTile(
-                      "Salas de Chat",
-                      Icons.assignment,
-                      '/simulacao',
-                    ),
-                  //: 
-                  //ListTile(
-                  //    title: Text('Sala de Chat'),
-                  //    leading: Icon(Icons.chat),
-                  //    onTap: () => Navigator.push(
-                  //        context,
-                  //        MaterialPageRoute(
-                  //            builder: (context) => SalaDeChat(
-                  //                'Chat', widget.mapa['company_id'], widget.mapa)))),
+              //    ?
+              _listTile(
+                "Salas de Chat",
+                Icons.assignment,
+                '/simulacao',
+              ),
+              //:
+              //ListTile(
+              //    title: Text('Sala de Chat'),
+              //    leading: Icon(Icons.chat),
+              //    onTap: () => Navigator.push(
+              //        context,
+              //        MaterialPageRoute(
+              //            builder: (context) => SalaDeChat(
+              //                'Chat', widget.mapa['company_id'], widget.mapa)))),
               _listTile(
                 "Mensagens",
                 Icons.message,
