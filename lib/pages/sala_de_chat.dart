@@ -62,7 +62,7 @@ class _SalaDeChatState extends State<SalaDeChat> {
         .add(data);
 
     var jsonData =
-        '{ "notification": {"title": "${widget.mapa['nome']}", "body": "$text"}, "priority": "high", "to":  "/topics/${widget.idEmpresa}"}';
+        '{ "notification": {"title": "${widget.title}", "body": "${widget.mapa['nome']}$text"}, "priority": "high", "to":  "/topics/${widget.idEmpresa}"}';
 
     http.post("https://fcm.googleapis.com/fcm/send", body: jsonData, headers: {
       "Content-Type": "application/json",

@@ -3,7 +3,8 @@ import 'dart:convert';
 //import 'dart:typed_data';
 
 //import 'package:flutter/services.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
+//import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:logisticsgame/models/arquivo.dart';
 import 'package:flutter/material.dart';
@@ -194,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
         onPressed: () {
-          isLoading = true;
+          //isLoading = true;
           _clickButton(context);
         },
       ),
@@ -218,6 +219,9 @@ class _LoginPageState extends State<LoginPage> {
 
   // Validação do Usuário
   _verificacao(id, login, senha, {save = false}) async {
+    setState(() {
+      isLoading = true;
+    });
     var arquivo = Arquivo();
     //var arquivo2 = Arquivo();
     var usuario = await LoginApi.login(id, login, senha);
@@ -244,6 +248,9 @@ class _LoginPageState extends State<LoginPage> {
         //arquivo2.saveFile();
       }
     } else {
+      setState(() {
+        isLoading = false;
+      });
       alert(context, "Login Inválido!");
     }
   }
@@ -269,12 +276,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future _scan() async {
-    String barcode = await scanner.scan();
-    //setState(() => this.barcode = barcode);
-    var mapa = json.decode(barcode);
-    var id = mapa['id'];
-    var login = mapa['login'];
-    var senha = mapa['senha'];
-    _verificacao(id, login, senha, save: true);
+    try {
+      var options = ScanOptions(strings: {
+        "flash_on": "flash",
+        "flash_off": "desligar",
+        "cancel": "sair"
+      });
+      var barcode = await BarcodeScanner.scan(options: options);
+
+      var mapa = json.decode(barcode.rawContent);
+      var id = mapa['id'];
+      var login = mapa['login'];
+      var senha = mapa['senha'];
+      _verificacao(id, login, senha, save: true);
+    } catch (e) {
+      return null;
+    }
   }
 } // Final

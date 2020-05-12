@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>435721902830-bs2j7apnae2n9m4rqrcc9bdqsutnkqrv.apps.googleusercontent.com</string>
+	<string>657483785884-588vq6bvd7hq4a9vhgnv40s07gcsgd8k.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.435721902830-bs2j7apnae2n9m4rqrcc9bdqsutnkqrv</string>
+	<string>com.googleusercontent.apps.657483785884-588vq6bvd7hq4a9vhgnv40s07gcsgd8k</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB6o34JC84oRBp9fHrAT_lNONXS-vmsS40</string>
+	<string>AIzaSyDJhTe-lPvMyzatsUsez6GhZPF_ahKMSG8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>435721902830</string>
+	<string>657483785884</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.logisticsgame</string>
 	<key>PROJECT_ID</key>
-	<string>upbusinessgame</string>
+	<string>upbg-ffa0c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>upbusinessgame.appspot.com</string>
+	<string>upbg-ffa0c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:435721902830:ios:b32c10940f879ba490f1ff</string>
+	<string>1:657483785884:ios:e3eee41a7b092a7cffef59</string>
 	<key>DATABASE_URL</key>
-	<string>https://upbusinessgame.firebaseio.com</string>
+	<string>https://upbg-ffa0c.firebaseio.com</string>
 </dict>
 </plist>
