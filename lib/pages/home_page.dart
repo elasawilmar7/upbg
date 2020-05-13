@@ -36,8 +36,10 @@ class _HomePageState extends State<HomePage> {
     _firebaseMessaging.getToken().then((token) {
       print('TOKEN:' + token);
     });
-    _firebaseMessaging.subscribeToTopic(widget.mapa['company_id']);
-    _firebaseMessaging.subscribeToTopic(widget.mapa['id_simulacao']);
+    if (widget.mapa['perfil'] != "coordinator") {
+      _firebaseMessaging.subscribeToTopic(widget.mapa['company_id']);
+      _firebaseMessaging.subscribeToTopic(widget.mapa['id_simulacao']);
+    }
     super.initState();
   }
 
@@ -155,8 +157,10 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         Navigator.pushNamed(context, rota);
         if (save) {
-          _firebaseMessaging.unsubscribeFromTopic(widget.mapa['company_id']);
-          _firebaseMessaging.unsubscribeFromTopic(widget.mapa['id_simulacao']);
+          if (widget.mapa['perfil'] != "coordinator") {
+            _firebaseMessaging.subscribeToTopic(widget.mapa['company_id']);
+            _firebaseMessaging.subscribeToTopic(widget.mapa['id_simulacao']);
+          }
           var arquivo = Arquivo();
           //arquivo.local = "login.json";
           arquivo.saveFile();
