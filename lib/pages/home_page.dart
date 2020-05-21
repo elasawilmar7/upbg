@@ -98,8 +98,6 @@ class _HomePageState extends State<HomePage> {
 
                 //currentAccountPicture: CircleAvatar(),
               ),
-              //widget.mapa['perfil'] == 'coordinator'
-              //    ?
               _listTile(
                 "Salas de Chat",
                 Icons.assignment,
@@ -114,21 +112,27 @@ class _HomePageState extends State<HomePage> {
               //        MaterialPageRoute(
               //            builder: (context) => SalaDeChat(
               //                'Chat', widget.mapa['company_id'], widget.mapa)))),
-              _listTile(
-                "Mensagens",
-                Icons.message,
-                '/mensagem',
-              ),
-              _listTile(
-                "Material PDF",
-                Icons.picture_as_pdf,
-                '/pdf',
-              ),
-              _listTile(
-                "Material Video",
-                Icons.video_library,
-                '/video',
-              ),
+              widget.mapa['perfil'] == 'coordinator'
+                  ? _listTile(
+                      "Mensagens",
+                      Icons.message,
+                      '/mensagem',
+                    )
+                  : null,
+              widget.mapa['perfil'] == 'coordinator'
+                  ? _listTile(
+                      "Material PDF",
+                      Icons.picture_as_pdf,
+                      '/pdf',
+                    )
+                  : null,
+              widget.mapa['perfil'] == 'coordinator'
+                  ? _listTile(
+                      "Material Video",
+                      Icons.video_library,
+                      '/video',
+                    )
+                  : null,
               _listTile(
                 "Jogo da Velha",
                 Icons.apps,

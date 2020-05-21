@@ -148,18 +148,19 @@ class _YoutubeState extends State<Youtube> {
   @override
   void initState() {
     SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
-  super.initState();
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.initState();
   }
 
-  Future<bool> _onBackPressed() async{
+  Future<bool> _onBackPressed() async {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    return Navigator.pop(context);
+    Navigator.pop(context);
+    return true;
   }
 
   @override
@@ -178,8 +179,8 @@ class _YoutubeState extends State<Youtube> {
               ),
               onPressed: () {
                 SystemChrome.setPreferredOrientations([
-                DeviceOrientation.portraitUp,
-              ]);
+                  DeviceOrientation.portraitUp,
+                ]);
                 Navigator.pop(context);
               }),
         ),
